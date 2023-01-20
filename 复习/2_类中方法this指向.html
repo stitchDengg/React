@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    class Person{
+      constructor(name,age){
+        this.name = name;
+        this.age = age;
+      }
+      speak(){
+        // speak放在那里 --类的原型对象上，供实例使用
+        // 通过stundent实例调用study时，study中的this就是Student实例
+        console.log(this)
+      }
+    }
+
+    let p1 = new Person('denghao',18);
+    p1.speak();  //this指向p1
+    const x = p1.speak
+    x()  //this指向undefined，因为在类的内部每个函数都会开一个局部的严格模式
+  </script>
+</body>
+</html>
