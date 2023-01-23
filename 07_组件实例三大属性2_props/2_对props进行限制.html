@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>01_hello_react</title>
+</head>
+<body>
+  <!-- 准备好一个容器 -->
+  <div id="app1"></div>
+  <div id="app2"></div>
+  <div id="app3"></div>
+
+  <!-- 引入核心库 -->
+  <script src="../js/react.development.js"></script>
+  <!-- 引入react操纵dom库 -->
+  <script src="../js/react-dom.development.js"></script>
+  <!-- 引入babel 将jsx转化为js-->
+  <script src="../js/babel.min.js"></script>
+  <!-- 引入proptypes 对props传输进行限制-->
+  <script src="../js/prop-types.js"></script>
+
+  <script type="text/babel">
+    //1.创建组件
+    class Person extends React.Component{
+      render() {
+        console.log(this)
+        //this.props.name = 'jack'; // 此行代码会报错，因为pros是只读的
+        const {name,gender,age} = this.props;
+        return (
+          <ul>
+            <li>姓名：{name}</li>
+            <li>性别:{gender}</li>
+            <li>年龄：{age}</li>
+          </ul>
+        )
+      }
+    }
+    /*
+      需求: 自定义用来显示一个人员信息的组件
+    1.姓名必须指定，且为字符串类型；
+    2.性别为字符串类型，如果性别没有指定，默认为男
+    3.年龄为字符串类型，且为数字类型，默认值为18 
+     */
+    // 限制传递的属性
+    Person.propTypes = {
+      name:PropTypes.string.isRequired,  //限制name必须传递，且为字符串类型
+      age:PropTypes.number,       //限制age为数字类型
+      gender:PropTypes.string      //限制gender为字符串类型
+    }
+    // 设置默认值
+    Person.defaultProps = {
+      gender:'不男不女',
+      age:18
+    }
+    // 2.渲染虚拟dom到页面
+    ReactDOM.render(<Person name="tom" gender="男" age={18}/>, document.getElementById('app1'));
+    ReactDOM.render(<Person name="mike" gender="女" age={20}/>, document.getElementById('app2'));
+    // ReactDOM.render(<Person name="denghao" gender="男" age="18"/>, document.getElementById('app3'));
+    const p  = {name:'denghao',gender:'男',age:18};
+    // 批量传递属性
+    ReactDOM.render(<Person {...p}/>, document.getElementById('app3'));
+  </script>
+</body>
+</html>

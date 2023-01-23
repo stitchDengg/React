@@ -24,19 +24,23 @@
     class Person extends React.Component{
       render() {
         console.log(this)
+        const {name,gender,age} = this.props;
         return (
           <ul>
-            <li>姓名：{this.props.name}</li>
-            <li>性别:{this.props.gender}</li>
-            <li>年龄：{this.props.age}</li>
+            <li>姓名：{name}</li>
+            <li>性别:{gender}</li>
+            <li>年龄：{age}</li>
           </ul>
         )
       }
     }
+    
     // 2.渲染虚拟dom到页面
-    ReactDOM.render(<Person name="tom" gender="男" age="18"/>, document.getElementById('app1'));
-    ReactDOM.render(<Person name="mike" gender="女" age="20"/>, document.getElementById('app2'));
+    ReactDOM.render(<Person name="tom" gender="男" age={18}/>, document.getElementById('app1'));
+    ReactDOM.render(<Person name="mike" gender="女" age={20}/>, document.getElementById('app2'));
     // ReactDOM.render(<Person name="denghao" gender="男" age="18"/>, document.getElementById('app3'));
+    const p  = {name:'denghao',gender:'男',age:18};
+    // 批量传递属性
     ReactDOM.render(<Person {...p}/>, document.getElementById('app3'));
   </script>
 </body>
