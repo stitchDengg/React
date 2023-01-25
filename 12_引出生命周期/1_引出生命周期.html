@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>01_hello_react</title>
+</head>
+
+<body>
+  <!-- 准备好一个容器 -->
+  <div id="app"></div>
+
+  <!-- 引入核心库 -->
+  <script src="../js/react.development.js"></script>
+  <!-- 引入react操纵dom库 -->
+  <script src="../js/react-dom.development.js"></script>
+  <!-- 引入babel 将jsx转化为js-->
+  <script src="../js/babel.min.js"></script>
+
+  <script type="text/babel">
+    //1.创建虚拟dom
+    class Life extends React.Component {
+      state = {
+        opacity: 1,
+      }
+
+      death = () => {
+        //卸载组件
+        ReactDOM.unmountComponentAtNode(document.getElementById('app'));
+      }
+      // 组件将要卸载
+      componentWillUnmount(){
+          //清除定时器
+          clearInterval(this.timer);
+      }
+
+      // 组件挂载完毕以后调用,只会调用一次
+      componentDidMount(){
+        this.timer = setInterval(() => {
+          let {opacity} = this.state;
+          this.setState({
+            opacity: opacity - 0.1,
+          });
+          if(opacity <= 0) this.state.opacity = 1;
+        }, 200);
+      }
+
+      // 初始化渲染、状态更新以后调用render
+      render() {
+        let {opacity} = this.state; 
+        return (
+          <div>
+            <h2 style={{ opacity: this.state.opacity }}>react学不会怎么办</h2>
+            <button onClick={this.death}>自杀</button>
+          </div>
+        )
+      }
+    }
+
+    // 2.渲染虚拟dom到页面
+    ReactDOM.render(<Life />, document.getElementById('app'));
+  </script>
+</body>
+
+</html>

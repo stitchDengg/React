@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>01_hello_react</title>
+</head>
+
+<body>
+  <!-- 准备好一个容器 -->
+  <div id="app"></div>
+
+  <!-- 引入核心库 -->
+  <script src="../js/react.development.js"></script>
+  <!-- 引入react操纵dom库 -->
+  <script src="../js/react-dom.development.js"></script>
+  <!-- 引入babel 将jsx转化为js-->
+  <script src="../js/babel.min.js"></script>
+
+  <script type="text/babel">
+    //1.创建组件
+    class Demo extends React.Component {
+
+      /* 
+        1.通过onXxx属性指定事件处理函数(注意大小写)
+          a.React使用的是自定义(合成)事件, 而不是使用的原生DOM事件
+          b.React中的事件是通过事件委托方式处理的(委托给组件最外层的元素)为了高效
+        2.通过event.target得到发生事件的DOM元素对象-----不要过度使用ref
+      */
+
+      // 创建ref容器
+      myRef1 = React.createRef();
+
+      //展示左侧输入框的数据
+      showData1 = () => {
+        console.log(this.myRef);
+        //获取左侧输入框的数据
+        const input1 = this.myRef1.current;
+        //提示数据
+        alert(input1.value);
+      }
+
+      showData2 = (e) =>{
+        //可以通过e.target得到发生事件的DOM元素对象
+        console.log(e.target.value);
+        alert(e.target.value);
+      }
+
+      render() {
+        return (
+          <div>
+            <input ref={this.myRef1} type="text" placeholder="点击按钮提示数据" />
+            <button onClick={this.showData1}>点我提示左侧数据</button>
+            <input onBlur = {this.showData2}  type="text" placeholder="点击按钮提示数据" />
+          </div>
+        )
+      }
+    }
+
+    // 2.渲染虚拟dom到页面
+    ReactDOM.render(<Demo/>, document.getElementById('app'));
+  </script>
+</body>
+
+</html>
