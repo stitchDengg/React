@@ -1,0 +1,14 @@
+/* 设置基本样式 */
+*{
+  box-sizing: border-box;
+}
+
+/* 设置body的样式 */
+body{
+  margin: 0;
+  background-color: #dfdfdf;
+}
+.app{
+  width: 800px;
+  margin: 0 auto;
+}

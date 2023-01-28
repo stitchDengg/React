@@ -1,0 +1,8 @@
+/* 设置外层容器样式 */
+.logs{
+  background-color: #eae2b7;
+  width: 800px;
+  /* 居中 */
+  margin: 50px auto;
+  padding: 20px 10px;
+}
