@@ -17,6 +17,14 @@ export default function LogsForm() {
     console.log(date,desc,time);
   }
 
+  const newLog = {
+    date,
+    desc,
+    time
+  }
+
+  console.log(newLog)
+
 
   return (
     <Card className="logs-form">
